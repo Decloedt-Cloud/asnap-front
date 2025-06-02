@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Hero from "./components/hero";
-import OurPartners from "./components/OurPartners";
+
 import UploadPdf from "./components/uploadPdf";
 import Footer from "./components/Footer";
 import RoadmapTimeline from "./components/RoadmapTimeline";
@@ -39,7 +39,7 @@ function Home() {
   return (
     <>
       <Hero />
-    {/*   <OurPartners /> */}
+
     {/* <RoadmapTimeline />  */}
 
     <AnalysisSection/>
