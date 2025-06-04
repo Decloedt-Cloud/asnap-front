@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tabler/icons-react": "^3.30.0",
+    "@vercel/speed-insights": "^1.2.0",
     "axios": "^1.9.0",
     "body-parser": "^1.20.3",
     "chart.js": "^4.4.7",
