@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
+import { Navigate } from "react-router-dom";
 import Hero from "./components/hero";
-
 import UploadPdf from "./components/uploadPdf";
 import Footer from "./components/Footer";
 import RoadmapTimeline from "./components/RoadmapTimeline";
@@ -13,7 +13,6 @@ import "flag-icons/css/flag-icons.min.css";
 import "./i18n";
 import AnalysisSection from "./components/section";
 import BenchmarkResult from "./components/benchmarkresult";
-
 function Home() {
   const testimonials = [
     {
@@ -52,17 +51,22 @@ function Home() {
 
 function App() {
   return (
-  
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/uploadPdf" element={<UploadPdf />} />
-           <Route path="/benchmark-result" element={<BenchmarkResult />} />
- 
+        {/* Chemin racine */}
+        <Route index element={<Home />} />
         
-</Routes>
-
+        {/* Chemins en minuscules et kebab-case */}
+        <Route path="/upload-pdf" element={<UploadPdf />} />
+        <Route path="/benchmark-result" element={<BenchmarkResult />} />
+        
+        {/* Redirection pour les anciennes URLs */}
+        <Route path="/uploadPdf" element={<Navigate to="/upload-pdf" replace />} />
+        
+        {/* Gestion des routes inconnues */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </Router>
   );
 }
