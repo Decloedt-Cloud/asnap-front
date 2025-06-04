@@ -13,6 +13,7 @@ import "flag-icons/css/flag-icons.min.css";
 import "./i18n";
 import AnalysisSection from "./components/section";
 import BenchmarkResult from "./components/benchmarkresult";
+import { Helmet } from "react-helmet";
 function Home() {
   const testimonials = [
     {
@@ -37,16 +38,47 @@ function Home() {
 
   return (
     <>
+      <Helmet>
+        <title>Asnap - Simplifiez votre assurance</title>
+        <meta
+          name="description"
+          content="Asnap vous aide à analyser, comparer et gérer vos assurances de manière intelligente et centralisée."
+        />
+        <meta
+          name="keywords"
+          content="assurance, analyse, benchmark, comparaison, asnap, pdf, santé, assurance santé"
+        />
+        {/* Open Graph / Facebook */}
+        <meta property="og:title" content="Asnap - Simplifiez votre assurance" />
+        <meta
+          property="og:description"
+          content="Asnap vous aide à comparer facilement vos assurances."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://asnap-front88-ihm1.vercel.app/" />
+        <meta
+          property="og:image"
+          content="https://asnap-front88-ihm1.vercel.app/og-image.jpg"
+        />
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Asnap - Simplifiez votre assurance" />
+        <meta
+          name="twitter:description"
+          content="Asnap vous aide à comparer facilement vos assurances."
+        />
+        <meta
+          name="twitter:image"
+          content="https://asnap-front88-ihm1.vercel.app/og-image.jpg"
+        />
+      </Helmet>
+
       <Hero />
-
-    {/* <RoadmapTimeline />  */}
-
-    <AnalysisSection/>
-   {/*   <AnimatedTestimonials testimonials={testimonials} autoplay={true} /> */}
-      <Footer/>  
-    
+      <AnalysisSection />
+      <Footer />
     </>
   );
+
 }
 
 function App() {
