@@ -38,23 +38,6 @@ function Home() {
 
   return (
     <>
-      <Helmet>
-        <title>Asnap - Simplifiez votre assurance</title>
-        <meta
-          name="description"
-          content="Asnap vous aide à analyser, comparer et gérer vos assurances de manière intelligente et centralisée."
-        />
-        <meta name="keywords" content="assurance, analyse, benchmark, comparaison, asnap, pdf, santé, assurance santé" />
-        <meta property="og:title" content="Asnap - Simplifiez votre assurance" />
-        <meta property="og:description" content="Asnap vous aide à comparer facilement vos assurances." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://asnap-front.vercel.app/" />
-        <meta property="og:image" content="https://asnap-front.vercel.app/og-image.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Asnap - Simplifiez votre assurance" />
-        <meta name="twitter:description" content="Asnap vous aide à comparer facilement vos assurances." />
-        <meta name="twitter:image" content="https://asnap-front.vercel.app/og-image.jpg" />
-      </Helmet>
 
       <Hero />
       <AnalysisSection />
@@ -71,7 +54,6 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/upload-pdf" element={<UploadPdf />} />
         <Route path="/benchmark-result" element={<BenchmarkResult />} />
-        <Route path="/uploadPdf" element={<Navigate to="/upload-pdf" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
