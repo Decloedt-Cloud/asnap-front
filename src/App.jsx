@@ -48,12 +48,12 @@ function Home() {
         <meta property="og:title" content="Asnap - Simplifiez votre assurance" />
         <meta property="og:description" content="Asnap vous aide à comparer facilement vos assurances." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://asnap-front88-ihm1.vercel.app/" />
-        <meta property="og:image" content="https://asnap-front88-ihm1.vercel.app/og-image.jpg" />
+        <meta property="og:url" content="https://asnap-front.vercel.app/" />
+        <meta property="og:image" content="https://asnap-front.vercel.app/og-image.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Asnap - Simplifiez votre assurance" />
         <meta name="twitter:description" content="Asnap vous aide à comparer facilement vos assurances." />
-        <meta name="twitter:image" content="https://asnap-front88-ihm1.vercel.app/og-image.jpg" />
+        <meta name="twitter:image" content="https://asnap-front.vercel.app/og-image.jpg" />
       </Helmet>
 
       <Hero />
