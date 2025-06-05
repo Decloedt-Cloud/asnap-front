@@ -4,11 +4,12 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom';
 
 // Inside your component
-const navigate = useNavigate();
+
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { t } = useTranslation();
+  const navigate = useNavigate();
   useEffect(() => {
     setIsLoaded(true);
     
