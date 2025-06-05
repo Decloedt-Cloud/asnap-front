@@ -75,7 +75,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <button 
               className="group relative px-6 md:px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-full overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/25 hover:scale-105 active:scale-95"
-              onClick={() => window.location.href = 'https://asnap-front.vercel.app/upload-pdf'}
+              onClick={() => window.location.href = 'https://asnap-front.vercel.app/uploadPdf'}
             >
               <span className="relative z-10 text-sm md:text-base">    {t('hero.startNow')}</span>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
