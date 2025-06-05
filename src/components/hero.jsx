@@ -1,6 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from 'react-router-dom';
+
+// Inside your component
+const navigate = useNavigate();
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -75,8 +79,11 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             <button 
               className="group relative px-6 md:px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-full overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/25 hover:scale-105 active:scale-95"
-       
+            
+             /*onClick={() => window.location.href = '/upload-pdf'} */
+              onClick={() => navigate('/upload-pdf')}
             >
+             
               <span className="relative z-10 text-sm md:text-base">    {t('hero.startNow')}</span>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
