@@ -74,6 +74,7 @@ function App() {
         <Route path="/upload-pdf" element={<Navigate to="/upload-pdf" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      
     </Router>
   );
 }
