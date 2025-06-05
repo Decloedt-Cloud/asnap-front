@@ -69,12 +69,12 @@ function App() {
       <Navbar />
       <Routes>
         <Route index element={<Home />} />
-        <Route path="/upload-pdf" element={<UploadPdf />} />
-        <Route path="/benchmark-result" element={<BenchmarkResult />} />
-        <Route path="/upload-pdf" element={<Navigate to="/upload-pdf" replace />} />
+        <Route path="https://asnap-front.vercel.app/upload-pdf" element={<UploadPdf />} />
+        <Route path="https://asnap-front.vercel.app/benchmark-result" element={<BenchmarkResult />} />
+        <Route path="https://asnap-front.vercel.app/upload-pdf" element={<Navigate to="/upload-pdf" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      
+
     </Router>
   );
 }
