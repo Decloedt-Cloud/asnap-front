@@ -37,9 +37,7 @@ function AnalysisSection() {
           {t('analysis.buttonText')} <ArrowRight className="ml-3" size={24} />
         </a>
         
-        <span className="text-sm text-gray-600 mt-4 sm:mt-0 text-center sm:ml-6">
-          {t('analysis.buttonNote')}
-        </span>
+
       </div>
     </motion.section>
   );
