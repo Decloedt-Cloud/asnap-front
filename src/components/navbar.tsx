@@ -51,7 +51,7 @@ const Navbar = () => {
   );
 
   const handleGetStarted = () => {
-    navigate("/uploadPdf");
+    navigate("/upload-pdf");
   };
 
   const handleLogoClick = () => {
