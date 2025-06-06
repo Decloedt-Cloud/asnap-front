@@ -66,7 +66,7 @@ const UploadPdf = () => {
   const [errors, setErrors] = useState({});
 
   // URL de l'API backend
-  const API_URL = "http://83.228.199.223";
+  const API_URL = "https://83.228.199.223";
 
   // Descriptions pour les catégories optionnelles
   const descriptions = {
