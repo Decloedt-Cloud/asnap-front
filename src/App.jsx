@@ -52,7 +52,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route index element={<Home />} />
-    
+        <Route path="/upload-pdf" element={<UploadPdf />} />
         <Route path="/benchmark-result" element={<BenchmarkResult />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
