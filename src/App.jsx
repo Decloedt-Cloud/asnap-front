@@ -1,44 +1,15 @@
-import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/navbar";
 import Hero from "./components/hero";
 import UploadPdf from "./components/uploadPdf";
 import Footer from "./components/Footer";
-import RoadmapTimeline from "./components/RoadmapTimeline";
-import AnimatedTestimonials from "./components/ui/animated-testimonials";
-import { FaRobot } from "react-icons/fa"; 
-import ClaimsChatbot from "./components/chatbot";
-import Services from "./components/services";
-import "flag-icons/css/flag-icons.min.css";
-import "./i18n";
 import AnalysisSection from "./components/section";
 import BenchmarkResult from "./components/benchmarkresult";
-import { Helmet } from "react-helmet";
 
+// Home component for the root route
 function Home() {
-  const testimonials = [
-    {
-      quote: "asnap a simplifié le suivi de mes assurances...",
-      name: "Nicolas Dubois, Neuchâtel",
-      designation: "Product Manager ",
-      src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop",
-    },
-    {
-      quote: "La transparence des contrats est une priorité...",
-      name: "Michael Rodriguez",
-      designation: "CTO ",
-      src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2574&auto=format&fit=crop",
-    },
-    {
-      quote: "Je recommande vivement asnap pour gérer les assurances...",
-      name: "Marc Lenièvre",
-      designation: "Operations Director",
-      src: "https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop",
-    },
-  ];
-
   return (
     <>
-
       <Hero />
       <AnalysisSection />
       <Footer />
@@ -46,6 +17,7 @@ function Home() {
   );
 }
 
+// Main App component with routing
 function App() {
   return (
     <Router>
