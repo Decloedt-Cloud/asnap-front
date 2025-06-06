@@ -118,7 +118,7 @@ const UploadPdf = () => {
       formData.append("phone", `${phoneCountry.value}${phone}`);
       formData.append("optional_categories", JSON.stringify(optionalCategories));
 
-      const response = await axios.post(`${API_URL}/upload/`, formData, {
+      const response = await axios.post(`${API_URL}/api/upload/`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
