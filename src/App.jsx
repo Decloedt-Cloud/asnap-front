@@ -5,6 +5,7 @@ import UploadPdf from "./components/uploadPdf";
 import Footer from "./components/Footer";
 import AnalysisSection from "./components/section";
 import BenchmarkResult from "./components/benchmarkresult";
+import "./i18n"; // Initialize i18n for multilingual support
 
 // Home component for the root route
 function Home() {
