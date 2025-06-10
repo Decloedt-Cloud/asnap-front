@@ -130,7 +130,7 @@ const BenchmarkReport = () => {
           {/* Submit button */}
 <div className="flex justify-center mt-8">
 <button
-              onClick={() => navigate("/UploadPdf/")}
+              onClick={() => navigate("/upload-pdf/")}
               className="w-full relative overflow-hidden bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white text-lg font-bold py-4 px-8 rounded-2xl shadow-2xl hover:shadow-yellow-400/25 transform hover:scale-105 active:scale-95 transition-all duration-300 group"
 >
 <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
