@@ -90,9 +90,6 @@ const Hero = () => {
               <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
             </button>
       
-            <button className="px-6 md:px-8 py-3 border border-purple-400/50 text-purple-200 font-semibold rounded-full backdrop-blur-sm hover:bg-purple-400/10 transition-all duration-300 hover:scale-105 active:scale-95 text-sm md:text-base">
-            {t('hero.learnMore')}
-            </button>
           </div>
         </div>
 
