@@ -78,15 +78,21 @@ const UploadPdf = () => {
   // Gestion du changement de fichier
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    if (selectedFile && selectedFile.type === "application/pdf") {
+    const allowedTypes = [
+      "application/pdf",
+      "image/jpeg",
+      "image/heic",
+      "image/heif"
+    ];
+    if (selectedFile && allowedTypes.includes(selectedFile.type)) {
       setFile(selectedFile);
       setErrors((prev) => ({ ...prev, file: null }));
       toast.success(t("uploadPdf.fileSelectedToast"));
       e.target.value = "";
     } else {
       setFile(null);
-      setErrors((prev) => ({ ...prev, file: t("uploadPdf.pdfOnlyToast") }));
-      toast.error(t("uploadPdf.pdfOnlyToast"));
+      setErrors((prev) => ({ ...prev, file: t("uploadPdf.pdfOrImageOnlyToast") }));
+      toast.error(t("uploadPdf.pdfOrImageOnlyToast"));
       e.target.value = "";
     }
   };
@@ -167,7 +173,6 @@ const UploadPdf = () => {
             <h2 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-1">
               {t("uploadPdf.title")}
             </h2>
-       
           </div>
 
           {/* Email field */}
@@ -314,7 +319,6 @@ const UploadPdf = () => {
               onClick={() => document.getElementById("file-input").click()}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-             
               {file ? (
                 <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center space-x-3">
@@ -354,7 +358,7 @@ const UploadPdf = () => {
               id="file-input"
               className="hidden"
               onChange={handleFileChange}
-              accept="application/pdf"
+              accept="application/pdf,image/jpeg,image/heic,image/heif"
             />
             {errors.file && (
               <p className="flex items-center text-red-400 text-xs mt-1 opacity-0" style={{ animation: 'fadeIn 0.3s ease-out forwards' }}>
@@ -460,7 +464,7 @@ const UploadPdf = () => {
             disabled={loading}
             className="w-full relative overflow-hidden bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white text-base font-bold py-3 px-6 rounded-2xl shadow-2xl hover:shadow-yellow-400/25 transform hover:scale-105 active:scale-95 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none group"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative z-10 flex items-center justify-center space-x-2">
               {loading ? (
                 <>
