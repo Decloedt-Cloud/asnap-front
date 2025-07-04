@@ -8,7 +8,7 @@ import Select from "react-select";
 import "flag-icons/css/flag-icons.min.css";
 
 // Import des icônes
-import { FaFilePdf, FaTrashAlt, FaInfoCircle, FaExclamationCircle } from "react-icons/fa";
+import { FaFilePdf, FaFileImage, FaTrashAlt, FaInfoCircle, FaExclamationCircle } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
 
 const UploadPdf = () => {
@@ -78,15 +78,15 @@ const UploadPdf = () => {
   // Gestion du changement de fichier
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    if (selectedFile && selectedFile.type === "application/pdf") {
+    if (selectedFile && ['application/pdf', 'image/jpeg', 'image/heic'].includes(selectedFile.type)) {
       setFile(selectedFile);
       setErrors((prev) => ({ ...prev, file: null }));
       toast.success(t("uploadPdf.fileSelectedToast"));
       e.target.value = "";
     } else {
       setFile(null);
-      setErrors((prev) => ({ ...prev, file: t("uploadPdf.pdfOnlyToast") }));
-      toast.error(t("uploadPdf.pdfOnlyToast"));
+      setErrors((prev) => ({ ...prev, file: t("uploadPdf.supportedFormatsToast") }));
+      toast.error(t("uploadPdf.supportedFormatsToast"));
       e.target.value = "";
     }
   };
@@ -167,7 +167,7 @@ const UploadPdf = () => {
             <h2 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-1">
               {t("uploadPdf.title")}
             </h2>
-       
+            <p className="text-white/60 text-sm">{t("uploadPdf.subtitle", { formats: "PDF, JPEG, HEIC" })}</p>
           </div>
 
           {/* Email field */}
@@ -314,12 +314,15 @@ const UploadPdf = () => {
               onClick={() => document.getElementById("file-input").click()}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-             
               {file ? (
                 <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center space-x-3">
                     <div className="p-2 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl">
-                      <FaFilePdf className="text-white" size={20} />
+                      {file.type === "application/pdf" ? (
+                        <FaFilePdf className="text-white" size={20} />
+                      ) : (
+                        <FaFileImage className="text-white" size={20} />
+                      )}
                     </div>
                     <div>
                       <p className="text-white font-medium text-sm">{file.name}</p>
@@ -344,7 +347,7 @@ const UploadPdf = () => {
                   </div>
                   <p className="text-white/70 text-base">{t("uploadPdf.dragDrop")}</p>
                   <p className="text-white/50 text-xs mt-1">
-                    {t("uploadPdf.clickToBrowse", "ou cliquez pour parcourir")}
+                    {t("uploadPdf.clickToBrowse", { formats: "PDF, JPEG, HEIC" })}
                   </p>
                 </div>
               )}
@@ -354,7 +357,7 @@ const UploadPdf = () => {
               id="file-input"
               className="hidden"
               onChange={handleFileChange}
-              accept="application/pdf"
+              accept="application/pdf,image/jpeg,image/heic"
             />
             {errors.file && (
               <p className="flex items-center text-red-400 text-xs mt-1 opacity-0" style={{ animation: 'fadeIn 0.3s ease-out forwards' }}>
@@ -496,16 +499,13 @@ const UploadPdf = () => {
           0% { transform: translateX(-100%) skewX(12deg); }
           100% { transform: translateX(200%) skewX(12deg); }
         }
-       
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(-10px); }
           to { opacity: 1; transform: translateY(0); }
         }
-       
         .animate-shimmer {
           animation: shimmer 3s infinite;
         }
-       
         .animate-fade-in {
           animation: fadeIn 0.3s ease-out;
         }
@@ -514,4 +514,4 @@ const UploadPdf = () => {
   );
 };
 
-export default UploadPdf; 
+export default UploadPdf;
