@@ -6,16 +6,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
 import "flag-icons/css/flag-icons.min.css";
-
-// Import des icônes
-import { FaFilePdf, FaFileImage, FaTrashAlt, FaInfoCircle, FaExclamationCircle } from "react-icons/fa";
+import heic2any from "heic2any";
+import { FaFilePdf, FaTrashAlt, FaInfoCircle, FaExclamationCircle, FaImage } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
 
 const UploadPdf = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  // Liste des pays pour le téléphone
   const phoneCountries = [
     { value: "+33", label: "France", flagClass: "fi fi-fr" },
     { value: "+49", label: "Allemagne", flagClass: "fi fi-de" },
@@ -23,7 +21,6 @@ const UploadPdf = () => {
     { value: "+41", label: "Suisse", flagClass: "fi fi-ch" },
   ];
 
-  // Composants personnalisés pour react-select
   const customOption = (props) => {
     const { innerProps, data } = props;
     return (
@@ -50,8 +47,7 @@ const UploadPdf = () => {
     );
   };
 
-  // États
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
   const [email, setEmail] = useState("");
   const [phoneCountry, setPhoneCountry] = useState(phoneCountries[0]);
   const [phone, setPhone] = useState("");
@@ -65,64 +61,196 @@ const UploadPdf = () => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [errors, setErrors] = useState({});
 
-  // URL de l'API backend
-  const API_URL = "https://83.228.199.223";
+  const API_URL = "http://localhost:8001";
 
-  // Descriptions pour les catégories optionnelles
   const descriptions = {
     accident: t("uploadPdf.descriptions.accident"),
     naturalMedicine: t("uploadPdf.descriptions.naturalMedicine"),
     travelInsurance: t("uploadPdf.descriptions.travelInsurance"),
   };
 
-  // Gestion du changement de fichier
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile && ['application/pdf', 'image/jpeg', 'image/heic'].includes(selectedFile.type)) {
-      setFile(selectedFile);
-      setErrors((prev) => ({ ...prev, file: null }));
-      toast.success(t("uploadPdf.fileSelectedToast"));
-      e.target.value = "";
-    } else {
-      setFile(null);
-      setErrors((prev) => ({ ...prev, file: t("uploadPdf.supportedFormatsToast") }));
-      toast.error(t("uploadPdf.supportedFormatsToast"));
-      e.target.value = "";
+  const getAcceptValue = () => {
+    if (files.length === 0) {
+      return ".pdf,.jpeg,.jpg,.heic,.heif,image/heic,image/heif,application/pdf,image/jpeg";
+    }
+    const hasPdf = files.some(file => file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf'));
+    return hasPdf ? "application/pdf,.pdf" : "image/jpeg,image/heic,image/heif,.jpeg,.jpg,.heic,.heif";
+  };
+
+  const handleFileChange = async (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    const validTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/heic', 'image/heif'];
+    const validExtensions = ['.pdf', '.jpeg', '.jpg', '.heic', '.heif'];
+    const maxFileSize = 10 * 1024 * 1024; // 10MB limit
+    const maxImageFiles = 4;
+
+    // Check if files already exist and enforce type exclusivity
+    if (files.length > 0) {
+      const existingFileIsPdf = files.some(file => file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf'));
+      const newFilesContainPdf = selectedFiles.some(file => 
+        file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')
+      );
+      const newFilesContainImages = selectedFiles.some(file => 
+        ['image/jpeg', 'image/jpg', 'image/heic', 'image/heif'].includes(file.type) ||
+        validExtensions.includes(file.name.toLowerCase().match(/\.[^\.]+$/)?.[0])
+      );
+
+      if (existingFileIsPdf && newFilesContainImages) {
+        setErrors((prev) => ({ ...prev, files: t('uploadPdf.noImagesWithPdfToast', 'Vous ne pouvez pas ajouter d\'images si un PDF est déjà sélectionné') }));
+        toast.error(t('uploadPdf.noImagesWithPdfToast', 'Vous ne pouvez pas ajouter d\'images si un PDF est déjà sélectionné'));
+        e.target.value = '';
+        return;
+      }
+      if (!existingFileIsPdf && newFilesContainPdf) {
+        setErrors((prev) => ({ ...prev, files: t('uploadPdf.noPdfWithImagesToast', 'Vous ne pouvez pas ajouter un PDF si des images sont déjà sélectionnées') }));
+        toast.error(t('uploadPdf.noPdfWithImagesToast', 'Vous ne pouvez pas ajouter un PDF si des images sont déjà sélectionnées'));
+        e.target.value = '';
+        return;
+      }
+    }
+
+    // Check for PDF count
+    const pdfFiles = selectedFiles.filter(file => file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf'));
+    if (pdfFiles.length > 1) {
+      setErrors((prev) => ({ ...prev, files: t('uploadPdf.onePdfOnlyToast', 'Vous ne pouvez uploader qu\'un seul fichier PDF') }));
+      toast.error(t('uploadPdf.onePdfOnlyToast', 'Vous ne pouvez uploader qu\'un seul fichier PDF'));
+      e.target.value = '';
+      return;
+    }
+
+    // Check total image files
+    const imageFiles = selectedFiles.filter(file => 
+      ['image/jpeg', 'image/jpg', 'image/heic', 'image/heif'].includes(file.type) ||
+      validExtensions.includes(file.name.toLowerCase().match(/\.[^\.]+$/)?.[0])
+    );
+    const totalImages = files.filter(file => 
+      ['image/jpeg', 'image/jpg'].includes(file.type) || file.name.toLowerCase().match(/\.(jpeg|jpg|heic|heif)$/)
+    ).length + imageFiles.length;
+    if (totalImages > maxImageFiles) {
+      setErrors((prev) => ({ ...prev, files: t('uploadPdf.maxImagesToast', `Vous ne pouvez uploader que ${maxImageFiles} images maximum`) }));
+      toast.error(t('uploadPdf.maxImagesToast', `Vous ne pouvez uploader que ${maxImageFiles} images maximum`));
+      e.target.value = '';
+      return;
+    }
+
+    // Validate file presence
+    if (!selectedFiles.length) {
+      setErrors((prev) => ({ ...prev, files: t('uploadPdf.noFileSelectedToast') }));
+      toast.error(t('uploadPdf.noFileSelectedToast', 'Aucun fichier sélectionné'));
+      e.target.value = '';
+      return;
+    }
+
+    setLoading(true);
+    const processedFiles = [];
+
+    try {
+      for (const selectedFile of selectedFiles) {
+        const fileExtension = selectedFile.name.toLowerCase().match(/\.[^\.]+$/);
+        const isValidExtension = fileExtension && validExtensions.includes(fileExtension[0]);
+
+        // Validate MIME type or extension
+        if (!validTypes.includes(selectedFile.type) && !isValidExtension) {
+          throw new Error(t('uploadPdf.invalidFileTypeToast', 'Type de fichier non supporté (PDF, JPEG, HEIC uniquement)'));
+        }
+
+        // Validate file size
+        if (selectedFile.size > maxFileSize) {
+          throw new Error(t('uploadPdf.fileTooLargeToast', 'Le fichier est trop volumineux (max 10MB)'));
+        }
+
+        if (selectedFile.type === 'image/heic' || selectedFile.type === 'image/heif' || (isValidExtension && ['.heic', '.heif'].includes(fileExtension[0]))) {
+          console.log('Converting HEIC/HEIF to JPEG:', selectedFile.name);
+          let conversionResult;
+          try {
+            conversionResult = await heic2any({
+              blob: selectedFile,
+              toType: 'image/jpeg',
+              quality: 0.92,
+            });
+          } catch (conversionError) {
+            console.error('HEIC conversion failed:', conversionError);
+            throw new Error('Échec de la conversion HEIC');
+          }
+
+          if (!(conversionResult instanceof Blob)) {
+            throw new Error('Conversion did not return a valid Blob');
+          }
+
+          const jpegFile = new File(
+            [conversionResult],
+            `${selectedFile.name.split('.')[0]}.jpg`,
+            {
+              type: 'image/jpeg',
+              lastModified: new Date().getTime(),
+            }
+          );
+
+          if (jpegFile.size > maxFileSize) {
+            throw new Error('Converted JPEG file exceeds size limit');
+          }
+
+          console.log('Converted JPEG file:', {
+            name: jpegFile.name,
+            type: jpegFile.type,
+            size: jpegFile.size,
+          });
+
+          processedFiles.push(jpegFile);
+        } else {
+          processedFiles.push(selectedFile);
+        }
+      }
+
+      // Update files state by appending new files
+      setFiles([...files, ...processedFiles]);
+      setErrors((prev) => ({ ...prev, files: null }));
+      toast.success(t('uploadPdf.fileSelectedToast', 'Fichier(s) sélectionné(s) avec succès'));
+    } catch (error) {
+      console.error('Error processing file:', error.message);
+      setErrors((prev) => ({
+        ...prev,
+        files: t('uploadPdf.conversionErrorToast', `Erreur lors du traitement du fichier: ${error.message}`),
+      }));
+      toast.error(t('uploadPdf.conversionErrorToast', `Erreur lors du traitement du fichier: ${error.message}`));
+    } finally {
+      setLoading(false);
+      e.target.value = '';
     }
   };
 
-  // Suppression du fichier sélectionné
-  const handleDeleteFile = (e) => {
+  const handleDeleteFile = (index) => (e) => {
     e.stopPropagation();
-    setFile(null);
-    toast.info(t("uploadPdf.fileDeletedToast"));
+    const newFiles = files.filter((_, i) => i !== index);
+    setFiles(newFiles);
+    toast.info(t("uploadPdf.fileDeletedToast", "Fichier supprimé"));
   };
 
-  // Validation et envoi vers le backend
   const handleUploadFile = async () => {
     const newErrors = {};
-    if (!file) newErrors.file = t("uploadPdf.errorNoFile");
+    if (!files.length) newErrors.files = t("uploadPdf.errorNoFile");
     if (!email) newErrors.email = t("uploadPdf.errorNoEmail");
     if (!phone) newErrors.phone = t("uploadPdf.errorNoPhone");
     if (!agree) newErrors.agree = t("uploadPdf.errorAgree");
-
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
     setLoading(true);
-
     try {
       const formData = new FormData();
-      formData.append("file", file);
+      // Send only the first file to the backend
+      formData.append("file", files[0]);
       formData.append("email", email);
       formData.append("phone", `${phoneCountry.value}${phone}`);
       formData.append("optional_categories", JSON.stringify(optionalCategories));
 
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+
       const response = await axios.post(`${API_URL}/api/upload/`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
-      // Redirection vers la page benchmark avec les données reçues
       navigate("/benchmark-result", {
         state: { benchmark: response.data.benchmark },
       });
@@ -137,18 +265,13 @@ const UploadPdf = () => {
 
   return (
     <div className="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-2 min-h-screen">
-      {/* Background animated elements */}
       <div className="absolute inset-0">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-96 h-120 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-20 animate-pulse" style={{ animationDelay: '2s' }}></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full opacity-10" style={{ animation: 'spin 20s linear infinite' }}></div>
       </div>
-
-      {/* Main container */}
       <div className="relative w-full max-w-4xl">
-        {/* Glassmorphism card */}
         <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-6 shadow-2xl">
-          {/* Shimmer effect */}
           <div className="absolute inset-0 -top-px overflow-hidden rounded-3xl">
             <div
               className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform skew-x-12"
@@ -158,8 +281,6 @@ const UploadPdf = () => {
               }}
             ></div>
           </div>
-
-          {/* Header */}
           <div className="text-center mb-4">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl mb-3 shadow-lg">
               <FiUpload className="text-white text-xl" size={20} />
@@ -167,10 +288,7 @@ const UploadPdf = () => {
             <h2 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-1">
               {t("uploadPdf.title")}
             </h2>
-            <p className="text-white/60 text-sm">{t("uploadPdf.subtitle", { formats: "PDF, JPEG, HEIC" })}</p>
           </div>
-
-          {/* Email field */}
           <div className="mb-4">
             <label className="block text-white/90 font-medium mb-1 text-xs uppercase tracking-wider">
               {t("uploadPdf.emailPlaceholder")}
@@ -194,8 +312,6 @@ const UploadPdf = () => {
               </p>
             )}
           </div>
-
-          {/* Phone field */}
           <div className="mb-4">
             <label className="block text-white/90 font-medium mb-1 text-xs uppercase tracking-wider">
               {t("uploadPdf.phonePlaceholder")}
@@ -299,46 +415,59 @@ const UploadPdf = () => {
               </p>
             )}
           </div>
-
-          {/* File upload */}
           <div className="mb-4">
             <label className="block text-white/90 font-medium mb-1 text-xs uppercase tracking-wider">
               {t("uploadPdf.dragDrop")}
             </label>
             <div
               className={`border-2 border-dashed rounded-3xl p-6 cursor-pointer transition-all duration-300 group relative overflow-hidden ${
-                errors.file
+                errors.files
                   ? "border-red-400/50 bg-red-400/5"
                   : "border-white/30 hover:border-yellow-400/60 hover:bg-white/5"
               }`}
               onClick={() => document.getElementById("file-input").click()}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => {
+                e.preventDefault();
+                if (e.dataTransfer.files.length) {
+                  handleFileChange({ target: { files: e.dataTransfer.files } });
+                }
+              }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              {file ? (
-                <div className="flex items-center justify-between relative z-10">
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl">
-                      {file.type === "application/pdf" ? (
-                        <FaFilePdf className="text-white" size={20} />
-                      ) : (
-                        <FaFileImage className="text-white" size={20} />
-                      )}
+              {files.length > 0 ? (
+                <div className="space-y-2 relative z-10">
+                  {files.map((file, index) => (
+                    <div key={index} className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div className={`p-2 rounded-2xl ${
+                          file.type.includes('image') 
+                            ? "bg-gradient-to-r from-blue-500 to-indigo-600" 
+                            : "bg-gradient-to-r from-red-500 to-red-600"
+                        }`}>
+                          {file.type.includes('image') ? (
+                            <FaImage className="text-white" size={20} />
+                          ) : (
+                            <FaFilePdf className="text-white" size={20} />
+                          )}
+                        </div>
+                        <div>
+                          <p className="text-white font-medium text-sm">{file.name}</p>
+                          <p className="text-green-400 text-xs flex items-center mt-1">
+                            <span className="mr-1">✓</span>
+                            {t("uploadPdf.fileSelected")}
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={handleDeleteFile(index)}
+                        className="p-1 hover:bg-red-500/20 rounded-xl transition-colors duration-200"
+                        title={t("uploadPdf.deleteFile")}
+                      >
+                        <FaTrashAlt className="text-red-400 hover:text-red-300" size={16} />
+                      </button>
                     </div>
-                    <div>
-                      <p className="text-white font-medium text-sm">{file.name}</p>
-                      <p className="text-green-400 text-xs flex items-center mt-1">
-                        <span className="mr-1">✓</span>
-                        {t("uploadPdf.fileSelected")}
-                      </p>
-                    </div>
-                  </div>
-                  <button
-                    onClick={handleDeleteFile}
-                    className="p-1 hover:bg-red-500/20 rounded-xl transition-colors duration-200"
-                    title={t("uploadPdf.deleteFile")}
-                  >
-                    <FaTrashAlt className="text-red-400 hover:text-red-300" size={16} />
-                  </button>
+                  ))}
                 </div>
               ) : (
                 <div className="text-center relative z-10">
@@ -347,7 +476,11 @@ const UploadPdf = () => {
                   </div>
                   <p className="text-white/70 text-base">{t("uploadPdf.dragDrop")}</p>
                   <p className="text-white/50 text-xs mt-1">
-                    {t("uploadPdf.clickToBrowse", { formats: "PDF, JPEG, HEIC" })}
+                    {t("uploadPdf.clickToBrowse", "ou cliquez pour parcourir")}
+                    <br />
+                    <span className="text-xs text-yellow-300/80">
+                      (1 PDF ou jusqu'à 4 images JPEG/HEIC)
+                    </span>
                   </p>
                 </div>
               )}
@@ -357,17 +490,16 @@ const UploadPdf = () => {
               id="file-input"
               className="hidden"
               onChange={handleFileChange}
-              accept="application/pdf,image/jpeg,image/heic"
+              accept={getAcceptValue()}
+              multiple
             />
-            {errors.file && (
+            {errors.files && (
               <p className="flex items-center text-red-400 text-xs mt-1 opacity-0" style={{ animation: 'fadeIn 0.3s ease-out forwards' }}>
                 <FaExclamationCircle className="mr-1" size={12} />
-                {errors.file}
+                {errors.files}
               </p>
             )}
           </div>
-
-          {/* Optional categories */}
           <div className="mb-4">
             <h3 className="text-white/90 font-medium mb-2 text-xs uppercase tracking-wider">
               {t("uploadPdf.optionalCategoriesTitle")}
@@ -422,8 +554,6 @@ const UploadPdf = () => {
               ))}
             </div>
           </div>
-
-          {/* Terms agreement */}
           <div className="mb-6">
             <div className="flex items-start space-x-2 p-3 bg-white/5 rounded-2xl border border-white/10">
               <div className="relative mt-0.5">
@@ -455,8 +585,6 @@ const UploadPdf = () => {
               </p>
             )}
           </div>
-
-          {/* Submit button */}
           <button
             type="button"
             onClick={handleUploadFile}
@@ -480,7 +608,6 @@ const UploadPdf = () => {
           </button>
         </div>
       </div>
-
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -493,7 +620,6 @@ const UploadPdf = () => {
         pauseOnHover
         theme="dark"
       />
-
       <style jsx>{`
         @keyframes shimmer {
           0% { transform: translateX(-100%) skewX(12deg); }
