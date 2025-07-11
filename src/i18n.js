@@ -58,7 +58,7 @@ analysis: {
         premiumNote: "Aujourd’hui, nos experts vous conseillent directement. Demain, une IA comportementale prendra le relais pour affiner encore plus les recommandations.",
         futureLabel: "Anticipez. Optimisez. Décidez sereinement.",
         futureNote: "",
-        buttonText: "Accéder au rapport complet(bientôt !)"
+        buttonText: "Accéder au rapport complet(Bientôt !)"
       },
       footer: {
         contact: "Contact",
