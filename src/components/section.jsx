@@ -36,14 +36,38 @@ function AnalysisSection() {
       </p>
 
       <div className="flex flex-col sm:flex-row items-center justify-center mt-8">
-        <a
-          href="/premium-report" // Remplacer par le lien réel vers le rapport complet
-          rel="noopener noreferrer"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl flex items-center text-lg font-semibold shadow-lg transform transition hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2"
+        {/* Option 1: Disabled button - More visible */}
+        <button
+          disabled
+          className="bg-gray-500 text-white px-8 py-4 rounded-xl flex items-center text-lg font-semibold shadow-lg cursor-not-allowed opacity-75 border-2 border-gray-400"
           aria-label={t('analysis.buttonText')}
         >
           {t('analysis.buttonText')} <ArrowRight className="ml-3" size={24} aria-hidden="true" />
-        </a>
+        </button>
+
+        {/* Option 2: Span that looks like a button but isn't clickable */}
+        {/* 
+        <span
+          className="bg-gray-400 text-white px-8 py-4 rounded-xl flex items-center text-lg font-semibold shadow-lg cursor-not-allowed opacity-50"
+          aria-label={t('analysis.buttonText')}
+        >
+          {t('analysis.buttonText')} <ArrowRight className="ml-3" size={24} aria-hidden="true" />
+        </span>
+        */}
+
+        {/* Option 3: Button with onClick that does nothing */}
+        {/* 
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            // Do nothing
+          }}
+          className="bg-gray-400 text-white px-8 py-4 rounded-xl flex items-center text-lg font-semibold shadow-lg cursor-not-allowed opacity-50"
+          aria-label={t('analysis.buttonText')}
+        >
+          {t('analysis.buttonText')} <ArrowRight className="ml-3" size={24} aria-hidden="true" />
+        </button>
+        */}
       </div>
     </motion.section>
   );

@@ -58,7 +58,7 @@ analysis: {
         premiumNote: "Aujourd’hui, nos experts vous conseillent directement. Demain, une IA comportementale prendra le relais pour affiner encore plus les recommandations.",
         futureLabel: "Anticipez. Optimisez. Décidez sereinement.",
         futureNote: "",
-        buttonText: "Accéder au rapport complet"
+        buttonText: "Accéder au rapport complet(À bientôt !)"
       },
       footer: {
         contact: "Contact",
@@ -253,7 +253,7 @@ analysis: {
         premiumNote: "Today, our experts advise you directly. Tomorrow, behavioral AI will take over to further refine recommendations.",
         futureLabel: "Anticipate. Optimize. Decide with confidence.",
         futureNote: "",
-        buttonText: "Access the full report"
+        buttonText: "Access the full report(See you soon!)"
       },
       footer: {
         contact: "Contact",
@@ -448,7 +448,7 @@ analysis: {
         premiumNote: "Oggi, i nostri esperti ti consigliano direttamente. Domani, un’IA comportamentale prenderà il posto per affinare ulteriormente le raccomandazioni.",
         futureLabel: "Anticipa. Ottimizza. Decidi con serenità.",
         futureNote: "",
-        buttonText: "Accedi al rapporto completo"
+        buttonText: "Accedi al rapporto completo(A presto!)"
       },
       footer: {
         contact: "Contatti",
@@ -642,7 +642,7 @@ analysis: {
         premiumNote: "Heute beraten Sie unsere Experten direkt. Morgen wird eine verhaltensbasierte KI die Empfehlungen noch weiter verfeinern.",
         futureLabel: "Vorausschauen. Optimieren. Mit Zuversicht entscheiden.",
         futureNote: "",
-        buttonText: "Zugang zum vollständigen Bericht"
+        buttonText: "Zugang zum vollständigen Bericht(Bis bald!)"
       },
       footer: {
         contact: "Kontakt",
