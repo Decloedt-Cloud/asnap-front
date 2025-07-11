@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "flag-icons/css/flag-icons.min.css";
 
@@ -7,6 +7,9 @@ import "flag-icons/css/flag-icons.min.css";
 const LINKS = [
   { name: "", href: "/" },
   { name: "", href: "/road" },
+  { name: "about.title", href: "/about" },
+  { name:  "contact.heroTitle", href: "/contact" }, 
+  { name: "legal.title", href: "/Legalnotice" }, 
 ];
 
 const BUTTON_CLASSES =
@@ -45,7 +48,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // Initialisation de la langue sélectionnée selon i18n ou par défaut en français
+
   const [selectedLanguage, setSelectedLanguage] = useState(
     LANGUAGES.find((lang) => lang.code === i18n.language) || LANGUAGES[1]
   );
@@ -56,9 +59,10 @@ const Navbar = () => {
 
   const handleLogoClick = () => {
     navigate("/");
+    console.log("Navigating to /");
   };
+  
 
-  // Lorsqu'une langue est sélectionnée dans le dropdown, on met à jour l'état et on change la langue de l'application
   const handleLanguageChange = (lang) => {
     setSelectedLanguage(lang);
     i18n.changeLanguage(lang.code);
@@ -74,15 +78,15 @@ const Navbar = () => {
           className="text-2xl font-bold text-gray-800 cursor-pointer"
           onClick={handleLogoClick}
         >
-          Assurance<span className="text-[#FFBF23]">IA</span>
+          Asnap
         </div>
 
         {/* Desktop Links */}
         <div className="hidden md:flex space-x-8">
           {LINKS.map((link) => (
-            <a key={link.name} href={link.href} className={LINK_CLASSES}>
+            <Link key={link.name} to={link.href} className={LINK_CLASSES}>
               {t(link.name)}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -93,7 +97,7 @@ const Navbar = () => {
             {t("getStarted")}
           </button>
 
-          {/* Dropdown de sélection de langue */}
+          {/* Dropdown de langue */}
           <div className="relative">
             <button
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -138,9 +142,9 @@ const Navbar = () => {
         <div className="md:hidden bg-gray-50 shadow-md">
           <div className="flex flex-col space-y-2 px-4 py-3">
             {LINKS.map((link) => (
-              <a key={link.name} href={link.href} className={LINK_CLASSES}>
+              <Link key={link.name} to={link.href} className={LINK_CLASSES}>
                 {t(link.name)}
-              </a>
+              </Link>
             ))}
             <button
               onClick={handleGetStarted}

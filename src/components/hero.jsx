@@ -68,9 +68,7 @@ const Hero = () => {
         {t('hero.analyzePdf')}
       </span>
       <br />
-      <span className="inline-block bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 cursor-default">
-        {t('hero.withAI')}
-      </span>
+
     </h1>
           
           <p className="text-sm md:text-base lg:text-lg leading-relaxed text-gray-300 max-w-xl mb-8">

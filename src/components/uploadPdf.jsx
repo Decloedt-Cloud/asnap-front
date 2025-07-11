@@ -61,7 +61,7 @@ const UploadPdf = () => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const [errors, setErrors] = useState({});
 
-  const API_URL = "https://83.228.199.223";
+  const API_URL = "https://asnap.ch";
 
   const descriptions = {
     accident: t("uploadPdf.descriptions.accident"),
