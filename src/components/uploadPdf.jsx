@@ -49,7 +49,7 @@ const UploadPdf = () => {
 
   const [files, setFiles] = useState([]);
   const [email, setEmail] = useState("");
-  const [phoneCountry, setPhoneCountry] = useState(phoneCountries[0]);
+  const [phoneCountry, setPhoneCountry] = useState(phoneCountries[3]);
   const [phone, setPhone] = useState("");
   const [agree, setAgree] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -479,7 +479,8 @@ const UploadPdf = () => {
                     {t("uploadPdf.clickToBrowse", "ou cliquez pour parcourir")}
                     <br />
                     <span className="text-xs text-yellow-300/80">
-                      (1 PDF ou jusqu'à 4 images JPEG/HEIC)
+                    {t("uploadPdf.choice", "ou cliquez pour parcourir")}
+                   
                     </span>
                   </p>
                 </div>

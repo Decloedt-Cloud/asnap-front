@@ -8,8 +8,7 @@ const LINKS = [
   { name: "", href: "/" },
   { name: "", href: "/road" },
   { name: "about.title", href: "/about" },
-  { name:  "contact.heroTitle", href: "/contact" }, 
-  { name: "legal.title", href: "/Legalnotice" }, 
+  { name:  "contact.heroTitle", href: "/contact" }
 ];
 
 const BUTTON_CLASSES =
@@ -78,7 +77,7 @@ const Navbar = () => {
           className="text-2xl font-bold text-gray-800 cursor-pointer"
           onClick={handleLogoClick}
         >
-          Asnap
+          āsnap 
         </div>
 
         {/* Desktop Links */}

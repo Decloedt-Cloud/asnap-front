@@ -4,12 +4,26 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   fr: {
     translation: {
+      benchmarkReport: {
+        title: "Résultats du Benchmark",
+        description: "Votre analyse de couverture détaillée",
+        overallScore: "Score global de couverture",
+        categoryDetails: "Détails par catégorie",
+        category: "Catégorie",
+        evaluation: "Évaluation",
+        analyzeAnother: "Analyser un autre document",
+        medals: {
+          gold: "Or",
+          silver: "Argent",
+          bronze: "Bronze",
+        },
+      },
       hero: {
         title: "Êtes-vous un chef de famille, un étudiant, en couple?",
-        description: ` Asnap utilise l'IA pour décrypter vos PDF en important votre contrat et fournir une lecture claire, immédiate, fiable, rapide et transparente de vos garanties.`,
+        description: ` Asnap utilise l’IA pour décrypter vos polices d’assurance. Importez votre police ou contrat et obtenez immédiatement une vue claire, précise et transparente de vos prestations.`,
         startNow: "🔥 Démarrer Maintenant",
         imageAlt: "Assurance AI",
-        analyzePdf: "Analyse intelligente de vos assurances", // Added
+        analyzePdf: "Analyse intelligente de votre assurance", // Added
         withAI: "avec l'IA",
            learnMore: "En Savoir Plus"
       },
@@ -17,7 +31,7 @@ const resources = {
       roadmap: "Feuille de route",
       getStarted: "Commencer",
       uploadPdf: {
-        title: "Téléversez Votre PDF",
+        title: "Charger votre contrat d’assurance",
         phonePlaceholder:"Entrer votre numéro  de téléphone",
         errorNoPhone:"Veuillez entrer votre numéro de téléphone!",
         emailPlaceholder: "Votre adresse e-mail",
@@ -25,8 +39,10 @@ const resources = {
         pdfOnlyToast: "Seuls les fichiers PDF sont autorisés !",
         fileDeletedToast: "Fichier supprimé !",
         fileSelected: "Sélectionné",
-        dragDrop: "Glissez et déposez votre fichier PDF ici",
+        dragDrop: "Glisser et déposez votre document ici",
         optionalCategoriesTitle: "Rendre facultatives certaines catégories :",
+        clickToBrowse:"ou cliquez pour parcourir",
+        choice:"1 PDF ou jusqu'à 4 images JPEG/HEIC",
         categories: {
           accident: "Accident",
           naturalMedicine: "Médecine naturelle",
@@ -45,7 +61,7 @@ const resources = {
           link: "Conditions d'utilisation",
         },
         processing: "Traitement en cours...",
-        generateBenchmark: "Générer le Benchmark",
+        generateBenchmark: "Obtenir mon analyse",
         errorNoFile: "Veuillez sélectionner un fichier PDF !",
         errorNoEmail: "Veuillez entrer une adresse e-mail !",
         errorAgree: "Vous devez accepter les conditions !",
@@ -54,9 +70,9 @@ const resources = {
       },
 analysis: {
         sectionTitle: "Une vision claire, jusque dans les moindres détails",
-        content: "Asnap Premium identifie les zones de flou souvent négligées : santé mentale, activité physique, situations particulières… Grâce à une analyse sur mesure, bénéficiez d’un accompagnement précis, fondé sur vos priorités personnelles.",
-        premiumNote: "Aujourd’hui, nos experts vous conseillent directement. Demain, une IA comportementale prendra le relais pour affiner encore plus les recommandations.",
-        futureLabel: "Anticipez. Optimisez. Décidez sereinement.",
+        content: "Asnap Premium met en lumière les zones d’ombre souvent ignorées : santé mentale, activité physique, situations particulières… Grâce à une analyse personnalisée, vous profitez d’un accompagnement précis, aligné sur vos priorités.",
+        premiumNote: "Aujourd’hui, nos experts vous conseillent directement. Demain, une IA comportementale prendra le relais pour affiner encore davantage les recommandations.",
+        futureLabel: "objectif de créer de la peur et de l’urgence",
         futureNote: "",
         buttonText: "Accéder au rapport complet(Bientôt !)"
       },
@@ -104,12 +120,12 @@ analysis: {
       about: {
         title: "À Propos",
         card1: {
-          title: "L'analyse d'assurance qui fait sens",
-          content: "ASNAP est une solution conçue pour répondre à un besoin croissant de clarté et de compréhension dans le domaine de l'assurance. Notre plateforme utilise l'intelligence artificielle pour transformer des contrats complexes en analyses accessibles et compréhensibles."
+          title: "L’analyse d’assurance qui a du sens",
+          content: "ASNAP simplifie vos contrats d’assurance grâce à l’intelligence artificielle.Importez votre police d'assurance, et obtenez en quelques secondes une lecture claire, fiable et compréhensible de vos couvertures et de vos prestations.Notre plateforme transforme des contrats complexes en analyses simples, lisibles et accessibles."
         },
         card2: {
           title: "Notre mission",
-          content: "Notre mission est de démocratiser la lecture et la compréhension des contrats d'assurance grâce à l'intelligence artificielle. Nous croyons que chaque personne mérite de comprendre parfaitement ses garanties et ses droits."
+          content: "Notre mission est de rendre l’assurance compréhensible, pour toutes et tous.Chez ASNAP, nous voulons démocratiser l’accès à l’information en simplifiant la lecture des polices d’assurance.Chacun·e mérite de comprendre ses prestations et couvertures, sans jargon, ni zones d’ombre."
         },
         card3: {
           title: "Une technologie conçue pour vous servir"
@@ -193,26 +209,42 @@ analysis: {
           clientServiceLabel: "Service client",
           addressLabel: "Adresse postale",
           address: "Federali sàrl\n1530 Payerne, Suisse"
-        }
-      }
+        },
+        
+      },
     
     },
+    
   },
   en: {
     translation: {
+      benchmarkReport: {
+        title: "Benchmark Results",
+        description: "Your detailed coverage analysis",
+        overallScore: "Overall Coverage Score",
+        categoryDetails: "Category Details",
+        category: "Category",
+        evaluation: "Evaluation",
+        analyzeAnother: "Analyze another document",
+        medals: {
+          gold: "Gold",
+          silver: "Silver",
+          bronze: "Bronze",
+        },
+      },
       hero: {
         title: "Are you a family head, a student, or a couple?",
-        description: `Asnap leverages AI to decode your PDFs by uploading your contract, delivering clear, instant, reliable, fast, and transparent insights into your guarantees.`,
+        description: `Asnap uses AI to decipher your insurance policies. Upload your policy or contract and instantly get a clear, precise, and transparent overview of your benefits.`,
         startNow: "🔥 Start Now",
         imageAlt: "Insurance AI",
-        analyzePdf: "Intelligent analysis of your insurance", 
+        analyzePdf: "Smart Analysis of Your Insurance", 
              learnMore: "Learn More"
       },
       home: "Home",
       roadmap: "Roadmap",
       getStarted: "Get Started",
       uploadPdf: {
-        title: "Upload Your PDF",
+        title: "Upload your insurance policy",
         phonePlaceholder:"Enter your phone number",
        errorNoPhone:"Please enter your phone number!",
         emailPlaceholder: "Your email address",
@@ -220,8 +252,10 @@ analysis: {
         pdfOnlyToast: "Only PDF files are allowed!",
         fileDeletedToast: "File deleted!",
         fileSelected: "Selected",
-        dragDrop: "Drag and drop your PDF file here",
+        dragDrop: "Drag and drop your document here",
         optionalCategoriesTitle: "Make certain categories optional:",
+        clickToBrowse: "or click to browse",
+        choice:"1 PDF or up to 4 JPEG/HEIC images",
         categories: {
           accident: "Accident",
           naturalMedicine: "Natural Medicine",
@@ -240,7 +274,7 @@ analysis: {
           link: "Terms of Use",
         },
         processing: "Processing...",
-        generateBenchmark: "Generate Benchmark",
+        generateBenchmark: "Get my analysis",
         errorNoFile: "Please select a PDF file!",
         errorNoEmail: "Please enter an email address!",
         errorAgree: "You must accept the terms!",
@@ -248,10 +282,10 @@ analysis: {
         benchmarkErrorToast: "Error generating benchmark!",
       },
       analysis: {
-        sectionTitle: "A clear vision, down to the smallest details",
-        content: "Asnap Premium identifies often overlooked areas: mental health, physical activity, specific situations… With tailored analysis, benefit from precise guidance based on your personal priorities.",
-        premiumNote: "Today, our experts advise you directly. Tomorrow, behavioral AI will take over to further refine recommendations.",
-        futureLabel: "Anticipate. Optimize. Decide with confidence.",
+        sectionTitle: "A clear vision, down to the finest details",
+        content: "Asnap Premium highlights often overlooked grey areas: mental health, physical activity, special circumstances… With personalized analysis, you benefit from precise guidance tailored to your priorities.",
+        premiumNote: "Today, our experts advise you directly. Tomorrow, behavioral AI takes over to further refine recommendations.",
+        futureLabel: "Goal: instill fear and urgency",
         futureNote: "",
         buttonText: "Access the full report(See you soon!)"
       },
@@ -300,7 +334,7 @@ analysis: {
         title: "About",
         card1: {
           title: "Insurance Analysis That Makes Sense",
-          content: "ASNAP is a solution designed to address a growing need for clarity and understanding in the insurance field. Our platform uses artificial intelligence to transform complex contracts into accessible and understandable analyses."
+          content: "ASNAP simplifies your insurance contracts using AI. Upload your policy and get a clear, reliable, and understandable breakdown of your coverages and benefits within seconds. Our platform transforms complex agreements into simple, readable, and accessible analyses."
         },
         card2: {
           title: "Our Mission",
@@ -394,12 +428,26 @@ analysis: {
   },
   it: {
     translation: {
+      benchmarkReport: {
+        title: "Risultati del Benchmark",
+        description: "La tua analisi dettagliata della copertura",
+        overallScore: "Punteggio complessivo della copertura",
+        categoryDetails: "Dettagli per categoria",
+        category: "Categoria",
+        evaluation: "Valutazione",
+        analyzeAnother: "Analizza un altro documento",
+        medals: {
+          gold: "Oro",
+          silver: "Argento",
+          bronze: "Bronzo",
+        },
+      },
       hero: {
         title: "Sei un capofamiglia, uno studente o una coppia?",
-        description: `Asnap utilizza l'IA per decifrare i tuoi PDF caricando il tuo contratto, offrendo una lettura chiara, immediata, affidabile, veloce e trasparente delle tue garanzie.`,
+        description: `Asnap utilizza l'IA per decifrare le tue polizze assicurative. Carica la tua polizza o contratto e ottieni immediatamente una visione chiara, precisa e trasparente delle prestazioni.`,
         startNow: "🔥 Inizia Ora",
         imageAlt: "Insurance AI",
-        analyzePdf: "Analisi intelligente delle tue assicurazioni", // Added
+        analyzePdf: "Analisi intelligente della Sua assicurazione", // Added
         withAI: "con l'IA",
         learnMore: "Scopri di Più" 
       },
@@ -407,7 +455,7 @@ analysis: {
       roadmap: "Percorso",
       getStarted: "Inizia",
       uploadPdf: {
-        title: "Carica il tuo PDF",
+        title: "Carica il tuo contratto di assicurazione",
         phonePlaceholder:"Inserisci il tuo numero di telefono",
         errorNoPhone:"Inserisci il tuo numero di telefono!", 
         emailPlaceholder: "Il tuo indirizzo email",
@@ -415,8 +463,10 @@ analysis: {
         pdfOnlyToast: "Sono ammessi solo file PDF!",
         fileDeletedToast: "File eliminato!",
         fileSelected: "Selezionato",
-        dragDrop: "Trascina e rilascia il tuo file PDF qui",
+        dragDrop: "Trascina e rilascia il tuo documento qui",
         optionalCategoriesTitle: "Rendi facoltative alcune categorie:",
+        clickToBrowse: "o clicca per sfogliare",
+        choice:"1 PDF o fino a 4 immagini JPEG/HEIC",
         categories: {
           accident: "Incidente",
           naturalMedicine: "Medicina Naturale",
@@ -435,7 +485,7 @@ analysis: {
           link: "Termini d'uso",
         },
         processing: "Elaborazione in corso...",
-        generateBenchmark: "Genera Benchmark",
+        generateBenchmark: "Ottieni la mia analisi",
         errorNoFile: "Seleziona un file PDF!",
         errorNoEmail: "Inserisci un indirizzo email!",
         errorAgree: "Devi accettare i termini!",
@@ -443,10 +493,10 @@ analysis: {
         benchmarkErrorToast: "Errore durante la generazione del benchmark!",
       },
       analysis: {
-        sectionTitle: "Una visione chiara, fino ai minimi dettagli",
-        content: "Asnap Premium identifica le aree spesso trascurate: salute mentale, attività fisica, situazioni particolari… Grazie a un’analisi su misura, beneficia di un supporto preciso, basato sulle tue priorità personali.",
-        premiumNote: "Oggi, i nostri esperti ti consigliano direttamente. Domani, un’IA comportamentale prenderà il posto per affinare ulteriormente le raccomandazioni.",
-        futureLabel: "Anticipa. Ottimizza. Decidi con serenità.",
+        sectionTitle: "Una visione chiara, fin nei minimi dettagli",
+        content: "Asnap Premium illumina le aree d'ombra spesso trascurate: salute mentale, attività fisica, situazioni particolari… Grazie a un'analisi personalizzata, benefici di un supporto preciso, allineato alle tue priorità.",
+        premiumNote: "Oggi i nostri esperti ti consigliano direttamente. Domani, un'IA comportamentale prenderà il relais per perfezionare ulteriormente le raccomandazioni.",
+        futureLabel: "Obiettivo: generare paura e urgenza",
         futureNote: "",
         buttonText: "Accedi al rapporto completo(A presto!)"
       },
@@ -494,8 +544,8 @@ analysis: {
       about: {
         title: "Informazioni",
         card1: {
-          title: "Analisi assicurativa che ha senso",
-          content: "ASNAP è una soluzione progettata per rispondere a un crescente bisogno di chiarezza e comprensione nel campo assicurativo. La nostra piattaforma utilizza l'intelligenza artificiale per trasformare contratti complessi in analisi accessibili e comprensibili."
+          title: "L'analisi assicurativa che ha senso",
+          content: "ASNAP semplifica i tuoi contratti assicurativi con l'intelligenza artificiale. Carica la tua polizza e ottieni in pochi secondi una lettura chiara, affidabile e comprensibile delle tue coperture e prestazioni. La nostra piattaforma trasforma contratti complessi in analisi semplici, leggibili e accessibili."
         },
         card2: {
           title: "La nostra missione",
@@ -589,19 +639,33 @@ analysis: {
   },
   de: {
     translation: {
+      benchmarkReport: {
+        title: "Benchmark-Ergebnisse",
+        description: "Ihre detaillierte Deckungsanalyse",
+        overallScore: "Gesamt-Deckungspunktzahl",
+        categoryDetails: "Kategoriedetails",
+        category: "Kategorie",
+        evaluation: "Bewertung",
+        analyzeAnother: "Ein weiteres Dokument analysieren",
+        medals: {
+          gold: "Gold",
+          silver: "Silber",
+          bronze: "Bronze",
+        },
+      },
       hero: {
         title: "Sind Sie Familienoberhaupt, Student oder ein Paar?",
-        description: `Asnap nutzt KI, um Ihre PDFs zu entschlüsseln, indem Sie Ihren Vertrag hochladen und eine klare, sofortige, zuverlässige, schnelle und transparente Analyse Ihrer Garantien erhalten.`,
+        description: `Asnap nutzt KI, um Ihre Versicherungspolicen zu entschlüsseln. Laden Sie Ihre Police oder Vertrag hoch und erhalten Sie sofort einen klaren, präzisen und transparenten Überblick über Ihre Leistungen.`,
         startNow: "🔥 Jetzt starten",
         imageAlt: "Insurance AI",
-        analyzePdf: "Intelligente Analyse Ihrer Versicherungen", // Added
+        analyzePdf: "Intelligente Analyse Ihrer Versicherung", // Added
        learnMore: "Mehr Erfahren"
       },
       home: "Startseite",
       roadmap: "Fahrplan",
       getStarted: "Loslegen",
       uploadPdf: {
-        title: "Laden Sie Ihr PDF hoch",
+        title: "Laden Sie Ihren Versicherungsvertrag hoch",
         phonePlaceholder:"Geben Sie Ihre Telefonnummer ein",
         errorNoPhone:"ughiu",
         emailPlaceholder: "Ihre E-Mail-Adresse",
@@ -609,8 +673,10 @@ analysis: {
         pdfOnlyToast: "Nur PDF-Dateien sind erlaubt!",
         fileDeletedToast: "Datei gelöscht!",
         fileSelected: "Ausgewählt",
-        dragDrop: "Ziehen Sie Ihre PDF-Datei hierher",
+        dragDrop: "Ziehen Sie Ihr Dokument hierher und lassen Sie es los",
         optionalCategoriesTitle: "Machen Sie bestimmte Kategorien optional:",
+        clickToBrowse: "oder klicken Sie zum Durchsuchen",
+        choice:"1 PDF oder bis zu 4 JPEG/HEIC-Bildern",
         categories: {
           accident: "Unfall",
           naturalMedicine: "Naturmedizin",
@@ -629,7 +695,7 @@ analysis: {
           link: "Nutzungsbedingungen",
         },
         processing: "Verarbeitung läuft...",
-        generateBenchmark: "Benchmark erstellen",
+        generateBenchmark: "Meine Analyse erhalten",
         errorNoFile: "Bitte wählen Sie eine PDF-Datei aus!",
         errorNoEmail: "Bitte geben Sie eine E-Mail-Adresse ein!",
         errorAgree: "Sie müssen die Bedingungen akzeptieren!",
@@ -637,10 +703,10 @@ analysis: {
         benchmarkErrorToast: "Fehler beim Erstellen des Benchmarks!",
       },
       analysis: {
-        sectionTitle: "Eine klare Sicht, bis ins kleinste Detail",
-        content: "Asnap Premium erkennt oft übersehene Bereiche: psychische Gesundheit, körperliche Aktivität, besondere Situationen… Mit maßgeschneiderter Analyse profitieren Sie von präziser Unterstützung, basierend auf Ihren persönlichen Prioritäten.",
-        premiumNote: "Heute beraten Sie unsere Experten direkt. Morgen wird eine verhaltensbasierte KI die Empfehlungen noch weiter verfeinern.",
-        futureLabel: "Vorausschauen. Optimieren. Mit Zuversicht entscheiden.",
+        sectionTitle: "Ein klares Bild, bis ins kleinste Detail",
+        content: "Asnap Premium beleuchtet die oft übersehenen Schattenbereiche: psychische Gesundheit, körperliche Aktivität, besondere Lebenslagen… Dank einer personalisierten Analyse erhalten Sie präzise Begleitung, abgestimmt auf Ihre Prioritäten.",
+        premiumNote: "Heute beraten Sie unsere Experten persönlich. Morgen übernimmt eine Verhaltens-KI, um Empfehlungen noch präziser zu optimieren.",
+        futureLabel: "Ziel: Angst und Dringlichkeit erzeugen",
         futureNote: "",
         buttonText: "Zugang zum vollständigen Bericht(Bis bald!)"
       },
@@ -688,8 +754,8 @@ analysis: {
       about: {
         title: "Über",
         card1: {
-          title: "Versicherungsanalyse mit Sinn",
-          content: "ASNAP ist eine Lösung, die entwickelt wurde, um dem wachsenden Bedarf an Klarheit und Verständnis im Versicherungsbereich gerecht zu werden. Unsere Plattform nutzt künstliche Intelligenz, um komplexe Verträge in zugängliche und verständliche Analysen umzuwandeln."
+          title: "Versicherungsanalyse mit Sinn und Verstand",
+          content: "ASNAP vereinfacht Ihre Versicherungsverträge durch KI. Laden Sie Ihre Police hoch und erhalten Sie innerhalb von Sekunden eine klare, verlässliche und verständliche Übersicht Ihrer Deckungen und Leistungen. Unsere Plattform wandelt komplexe Verträge in einfache, lesbare und zugängliche Analysen um."
         },
         card2: {
           title: "Unsere Mission",
