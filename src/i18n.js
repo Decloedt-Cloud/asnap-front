@@ -440,7 +440,7 @@ analysis: {
   it: {
     translation: {
 home2: {
-  title: "Home",
+  title: "Pagina iniziale",
 },
       benchmarkReport: {
         title: "Risultati del Benchmark",
