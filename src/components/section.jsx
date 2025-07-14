@@ -30,13 +30,16 @@ function AnalysisSection() {
         </p>
       </div>
 
-      <p className="text-gray-800 mt-8 text-lg text-center">
-        <span className="font-semibold text-gray-900">{t('analysis.futureLabel')}</span>{' '}
-        {t('analysis.futureNote')}
-      </p>
+      {/* Section modifiée avec deux parties distinctes */}
+      <div className="text-blue-600 mt-8 text-lg text-center">
+        <p>{t('analysis.futureLabelpart1')}</p>
+        <p className="font-bold text-blue-700 mt-2">
+          {t('analysis.futureLabelpart2')}
+        </p>
+        <p className="mt-2">{t('analysis.futureNote')}</p>
+      </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-center mt-8">
-        {/* Option 1: Disabled button - More visible */}
         <button
           disabled
           className="bg-gray-500 text-white px-8 py-4 rounded-xl flex items-center text-lg font-semibold shadow-lg cursor-not-allowed opacity-75 border-2 border-gray-400"
@@ -44,30 +47,6 @@ function AnalysisSection() {
         >
           {t('analysis.buttonText')} <ArrowRight className="ml-3" size={24} aria-hidden="true" />
         </button>
-
-        {/* Option 2: Span that looks like a button but isn't clickable */}
-        {/* 
-        <span
-          className="bg-gray-400 text-white px-8 py-4 rounded-xl flex items-center text-lg font-semibold shadow-lg cursor-not-allowed opacity-50"
-          aria-label={t('analysis.buttonText')}
-        >
-          {t('analysis.buttonText')} <ArrowRight className="ml-3" size={24} aria-hidden="true" />
-        </span>
-        */}
-
-        {/* Option 3: Button with onClick that does nothing */}
-        {/* 
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            // Do nothing
-          }}
-          className="bg-gray-400 text-white px-8 py-4 rounded-xl flex items-center text-lg font-semibold shadow-lg cursor-not-allowed opacity-50"
-          aria-label={t('analysis.buttonText')}
-        >
-          {t('analysis.buttonText')} <ArrowRight className="ml-3" size={24} aria-hidden="true" />
-        </button>
-        */}
       </div>
     </motion.section>
   );

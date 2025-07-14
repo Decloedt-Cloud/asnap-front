@@ -5,8 +5,7 @@ import "flag-icons/css/flag-icons.min.css";
 
 // Constantes pour les liens
 const LINKS = [
-  { name: "", href: "/" },
-  { name: "", href: "/road" },
+  { name: "home2.title", href: "/" },
   { name: "about.title", href: "/about" },
   { name:  "contact.heroTitle", href: "/contact" }
 ];

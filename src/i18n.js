@@ -4,6 +4,9 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   fr: {
     translation: {
+      home2: {
+        title: "Acceuil",
+      },
       benchmarkReport: {
         title: "Résultats du Benchmark",
         description: "Votre analyse de couverture détaillée",
@@ -72,9 +75,11 @@ analysis: {
         sectionTitle: "Une vision claire, jusque dans les moindres détails",
         content: "Asnap Premium met en lumière les zones d’ombre souvent ignorées : santé mentale, activité physique, situations particulières… Grâce à une analyse personnalisée, vous profitez d’un accompagnement précis, aligné sur vos priorités.",
         premiumNote: "Aujourd’hui, nos experts vous conseillent directement. Demain, une IA comportementale prendra le relais pour affiner encore davantage les recommandations.",
-        futureLabel: "objectif de créer de la peur et de l’urgence",
+        futureLabel: "90 % des gens découvrent trop tard que leur assurance ne couvre pas l’essentiel. Ne prenez pas ce risque",
+        futureLabelpart1:  "90 % des gens découvrent trop tard que leur assurance ne couvre pas l’essentiel.",
+        futureLabelpart2: "Ne prenez pas ce risque",
         futureNote: "",
-        buttonText: "Accéder au rapport complet(Bientôt !)"
+        buttonText: "Accéder au rapport complet"
       },
       footer: {
         contact: "Contact",
@@ -218,6 +223,10 @@ analysis: {
   },
   en: {
     translation: {
+      home2: {
+        title: "Home",       // Standard dans les interfaces
+        // title: "Pagina iniziale" // Version plus littérale
+      },
       benchmarkReport: {
         title: "Benchmark Results",
         description: "Your detailed coverage analysis",
@@ -285,9 +294,11 @@ analysis: {
         sectionTitle: "A clear vision, down to the finest details",
         content: "Asnap Premium highlights often overlooked grey areas: mental health, physical activity, special circumstances… With personalized analysis, you benefit from precise guidance tailored to your priorities.",
         premiumNote: "Today, our experts advise you directly. Tomorrow, behavioral AI takes over to further refine recommendations.",
-        futureLabel: "Goal: instill fear and urgency",
+        futureLabel: "90% of people find out too late that their insurance doesn't cover the essentials. Don't take that risk.",
+        futureLabelpart1:"90% of people find out too late that their insurance doesn't cover the essentials.",
+        futureLabelpart2:" Don't take that risk.",
         futureNote: "",
-        buttonText: "Access the full report(See you soon!)"
+        buttonText: "Access the full report"
       },
       footer: {
         contact: "Contact",
@@ -428,6 +439,9 @@ analysis: {
   },
   it: {
     translation: {
+home2: {
+  title: "Home",
+},
       benchmarkReport: {
         title: "Risultati del Benchmark",
         description: "La tua analisi dettagliata della copertura",
@@ -496,7 +510,9 @@ analysis: {
         sectionTitle: "Una visione chiara, fin nei minimi dettagli",
         content: "Asnap Premium illumina le aree d'ombra spesso trascurate: salute mentale, attività fisica, situazioni particolari… Grazie a un'analisi personalizzata, benefici di un supporto preciso, allineato alle tue priorità.",
         premiumNote: "Oggi i nostri esperti ti consigliano direttamente. Domani, un'IA comportamentale prenderà il relais per perfezionare ulteriormente le raccomandazioni.",
-        futureLabel: "Obiettivo: generare paura e urgenza",
+        futureLabel: "Il 90% delle persone scopre troppo tardi che la propria assicurazione non copre l’essenziale. Non correre questo rischio.",
+        futureLabelpart1:"Il 90% delle persone scopre troppo tardi che la propria assicurazione non copre l’essenziale.",
+        futureLabelpart2:"Non correre questo rischio.",
         futureNote: "",
         buttonText: "Accedi al rapporto completo(A presto!)"
       },
@@ -639,6 +655,9 @@ analysis: {
   },
   de: {
     translation: {
+      home2: {
+        title: "Startseite", // Ou "Home" (courant dans les UIs)
+      },
       benchmarkReport: {
         title: "Benchmark-Ergebnisse",
         description: "Ihre detaillierte Deckungsanalyse",
@@ -706,9 +725,11 @@ analysis: {
         sectionTitle: "Ein klares Bild, bis ins kleinste Detail",
         content: "Asnap Premium beleuchtet die oft übersehenen Schattenbereiche: psychische Gesundheit, körperliche Aktivität, besondere Lebenslagen… Dank einer personalisierten Analyse erhalten Sie präzise Begleitung, abgestimmt auf Ihre Prioritäten.",
         premiumNote: "Heute beraten Sie unsere Experten persönlich. Morgen übernimmt eine Verhaltens-KI, um Empfehlungen noch präziser zu optimieren.",
-        futureLabel: "Ziel: Angst und Dringlichkeit erzeugen",
+        futureLabel: "90 % der Menschen merken zu spät, dass ihre Versicherung das Wesentliche nicht abdeckt. Gehen Sie dieses Risiko nicht ein.",
+        futureLabelpart1:"90 % der Menschen merken zu spät, dass ihre Versicherung das Wesentliche nicht abdeckt.",
+        futureLabelpart2:"Gehen Sie dieses Risiko nicht ein.",
         futureNote: "",
-        buttonText: "Zugang zum vollständigen Bericht(Bis bald!)"
+        buttonText: "Zugang zum vollständigen Bericht"
       },
       footer: {
         contact: "Kontakt",
