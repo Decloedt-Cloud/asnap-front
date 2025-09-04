@@ -1,22 +1,25 @@
 import React, { useState } from "react";
-import { Mail, Phone, MapPin, Send, Calendar, Shield, CheckCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Shield, CheckCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const Contact = () => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  // Numéro de téléphone centralisé
+  const phoneNumber = "+41786046081";
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -25,8 +28,13 @@ const Contact = () => {
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: "", email: "", subject: "", message: "" });
     }, 3000);
+  };
+
+  // Fonction pour déclencher un appel téléphonique direct
+  const handleCallNow = () => {
+    window.location.href = `tel:${phoneNumber}`;
   };
 
   return (
@@ -38,20 +46,20 @@ const Contact = () => {
         <div className="absolute bottom-32 left-1/4 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
         <div className="absolute bottom-40 right-1/3 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl animate-pulse delay-3000"></div>
       </div>
-      
+
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
         {/* Header Section */}
         <div className="text-center mb-20">
           <div className="inline-block mb-6">
             <h1 className="text-6xl md:text-7xl font-black mb-4 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent transform hover:scale-105 transition-transform duration-300">
-              {t('contact.heroTitle')}
+              {t("contact.heroTitle")}
             </h1>
             <div className="h-1 w-32 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto rounded-full"></div>
           </div>
-        
+
           <p className="text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed">
-            {t('contact.heroDescription')}
+            {t("contact.heroDescription")}
           </p>
         </div>
 
@@ -62,10 +70,10 @@ const Contact = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-cyan-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
             <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-8 hover:bg-white/15 transition-all duration-300">
               <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-300 to-cyan-300 bg-clip-text text-transparent">
-                {t('contact.formTitle')}
+                {t("contact.formTitle")}
               </h2>
               <p className="text-gray-300 mb-8">
-                {t('contact.formDescription')}
+                {t("contact.formDescription")}
               </p>
 
               {isSubmitted ? (
@@ -73,10 +81,10 @@ const Contact = () => {
                   <div className="text-center">
                     <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4 animate-pulse" />
                     <h3 className="text-xl font-semibold text-green-400 mb-2">
-                      {t('contact.successTitle')}
+                      {t("contact.successTitle")}
                     </h3>
                     <p className="text-gray-300">
-                      {t('contact.successMessage')}
+                      {t("contact.successMessage")}
                     </p>
                   </div>
                 </div>
@@ -89,7 +97,7 @@ const Contact = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        placeholder={t('contact.formLabels.name')}
+                        placeholder={t("contact.formLabels.name")}
                         className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 group-hover/input:bg-white/15"
                       />
                     </div>
@@ -99,7 +107,7 @@ const Contact = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        placeholder={t('contact.formLabels.email')}
+                        placeholder={t("contact.formLabels.email")}
                         className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 group-hover/input:bg-white/15"
                       />
                     </div>
@@ -110,7 +118,7 @@ const Contact = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleInputChange}
-                      placeholder={t('contact.formLabels.subject')}
+                      placeholder={t("contact.formLabels.subject")}
                       className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-300 group-hover/input:bg-white/15"
                     />
                   </div>
@@ -120,7 +128,7 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleInputChange}
                       rows="6"
-                      placeholder={t('contact.formLabels.message')}
+                      placeholder={t("contact.formLabels.message")}
                       className="w-full bg-white/10 border border-white/30 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 group-hover/input:bg-white/15 resize-none"
                     ></textarea>
                   </div>
@@ -129,7 +137,7 @@ const Contact = () => {
                     className="group/btn w-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 flex items-center justify-center space-x-2"
                   >
                     <Send className="w-5 h-5 group-hover/btn:rotate-12 transition-transform duration-300" />
-                    <span>{t('contact.sendButton')}</span>
+                    <span>{t("contact.sendButton")}</span>
                   </button>
                 </div>
               )}
@@ -139,11 +147,11 @@ const Contact = () => {
                 <div className="flex items-center space-x-2 mb-2">
                   <Shield className="w-5 h-5 text-green-400" />
                   <span className="font-semibold text-green-400">
-                    {t('contact.confidentiality.title')}
+                    {t("contact.confidentiality.title")}
                   </span>
                 </div>
                 <p className="text-sm text-gray-300">
-                  {t('contact.confidentiality.text')}
+                  {t("contact.confidentiality.text")}
                 </p>
               </div>
             </div>
@@ -156,7 +164,7 @@ const Contact = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/20 to-pink-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
               <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-8 hover:bg-white/15 transition-all duration-300">
                 <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-cyan-300 to-pink-300 bg-clip-text text-transparent">
-                  {t('contact.contactInfoTitle')}
+                  {t("contact.contactInfoTitle")}
                 </h2>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-4 group/item">
@@ -165,10 +173,13 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="font-semibold text-white">
-                        {t('contact.contactMethods.email')}
+                        {t("contact.contactMethods.email")}
                       </p>
-                      <a href="mailto:info@asnap" className="text-purple-300 hover:text-purple-200 transition-colors duration-300">
-                      info@asnap
+                      <a
+                        href="mailto:info@asnap"
+                        className="text-purple-300 hover:text-purple-200 transition-colors duration-300"
+                      >
+                        info@asnap
                       </a>
                     </div>
                   </div>
@@ -178,11 +189,15 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="font-semibold text-white">
-                        {t('contact.contactMethods.phone')}
+                        {t("contact.contactMethods.phone")}
                       </p>
-                      <p className="text-gray-300">
-                        {t('contact.contactInfoPlaceholders.phone')}
-                      </p>
+                      {/* Lien cliquable pour le numéro de téléphone */}
+                      <a 
+                        href={`tel:${phoneNumber}`}
+                        className="text-gray-300 hover:text-cyan-300 transition-colors duration-300"
+                      >
+                        {t("contact.contactInfoPlaceholders.phone")}
+                      </a>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4 group/item">
@@ -191,10 +206,10 @@ const Contact = () => {
                     </div>
                     <div>
                       <p className="font-semibold text-white">
-                        {t('contact.contactMethods.address')}
+                        {t("contact.contactMethods.address")}
                       </p>
                       <p className="text-gray-300">
-                        {t('contact.contactInfoPlaceholders.address')}
+                        {t("contact.contactInfoPlaceholders.address")}
                       </p>
                     </div>
                   </div>
@@ -207,14 +222,17 @@ const Contact = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-pink-600/20 to-purple-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
               <div className="relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-8 hover:bg-white/15 transition-all duration-300">
                 <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">
-                  {t('contact.demoRequestTitle')}
+                  {t("contact.demoRequestTitle")}
                 </h2>
                 <p className="text-gray-300 mb-6">
-                  {t('contact.demoDescription')}
+                  {t("contact.demoDescription")}
                 </p>
-                <button className="group/btn w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 flex items-center justify-center space-x-2">
-                  <Calendar className="w-5 h-5 group-hover/btn:rotate-12 transition-transform duration-300" />
-                  <span>{t('contact.scheduleButton')}</span>
+                <button
+                  onClick={handleCallNow}
+                  className="group/btn w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 flex items-center justify-center space-x-2"
+                >
+                  <Phone className="w-5 h-5 group-hover/btn:rotate-12 transition-transform duration-300" />
+                  <span>{t("contact.scheduleButton")}</span>
                 </button>
               </div>
             </div>
@@ -237,7 +255,7 @@ const Contact = () => {
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${2 + Math.random() * 3}s`
+              animationDuration: `${2 + Math.random() * 3}s`,
             }}
           ></div>
         ))}

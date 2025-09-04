@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import "flag-icons/css/flag-icons.min.css";
@@ -46,26 +46,47 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const mobileMenuRef = useRef(null);
 
   const [selectedLanguage, setSelectedLanguage] = useState(
     LANGUAGES.find((lang) => lang.code === i18n.language) || LANGUAGES[1]
   );
 
+  // Fermer le menu mobile quand on clique en dehors
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleGetStarted = () => {
     navigate("/upload-pdf");
+    setIsMenuOpen(false);
   };
 
   const handleLogoClick = () => {
     navigate("/");
-    console.log("Navigating to /");
+    setIsMenuOpen(false);
   };
-  
 
   const handleLanguageChange = (lang) => {
     setSelectedLanguage(lang);
     i18n.changeLanguage(lang.code);
     localStorage.setItem("language", lang.code);
     setIsDropdownOpen(false);
+    setIsMenuOpen(false); // Ferme le menu mobile après sélection
+  };
+
+  // Fermer le menu mobile lors de la navigation
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
   };
 
   return (
@@ -79,7 +100,7 @@ const Navbar = () => {
           āsnap 
         </div>
 
-        {/* Desktop Links */}
+        {/* Desktop Links - RESTAURÉ */}
         <div className="hidden md:flex space-x-8">
           {LINKS.map((link) => (
             <Link key={link.name} to={link.href} className={LINK_CLASSES}>
@@ -88,7 +109,7 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Actions à droite */}
+        {/* Actions à droite - RESTAURÉ */}
         <div className="hidden md:flex items-center space-x-4">
           {/* Bouton Get Started */}
           <button onClick={handleGetStarted} className={BUTTON_CLASSES}>
@@ -137,16 +158,46 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-gray-50 shadow-md">
-          <div className="flex flex-col space-y-2 px-4 py-3">
+        <div 
+          className="md:hidden bg-gray-50 shadow-md"
+          ref={mobileMenuRef}
+        >
+          <div className="flex flex-col space-y-4 px-4 py-3">
             {LINKS.map((link) => (
-              <Link key={link.name} to={link.href} className={LINK_CLASSES}>
+              <Link 
+                key={link.name} 
+                to={link.href} 
+                className={LINK_CLASSES}
+                onClick={closeMobileMenu} // Ferme le menu au clic
+              >
                 {t(link.name)}
               </Link>
             ))}
+            
+            {/* Sélecteur de langue dans le menu mobile */}
+            <div className="mt-2">
+         
+              <div className="grid grid-cols-2 gap-2">
+                {LANGUAGES.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => handleLanguageChange(lang)}
+                    className={`flex items-center p-2 border rounded-md text-left ${
+                      selectedLanguage.code === lang.code
+                        ? "border-[#FFBF23] bg-yellow-50"
+                        : "border-gray-200 hover:bg-gray-100"
+                    }`}
+                  >
+                    <span className={`${lang.flagClass} w-5 h-5 mr-2`}></span>
+                    <span className="text-gray-700">{lang.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
             <button
               onClick={handleGetStarted}
-              className={`${BUTTON_CLASSES} text-center`}
+              className={`${BUTTON_CLASSES} text-center mt-4`}
             >
               {t("getStarted")}
             </button>

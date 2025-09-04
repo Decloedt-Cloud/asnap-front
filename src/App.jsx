@@ -9,6 +9,7 @@ import About from "./components/About"; // ✅ Ajouté ici
 import "./i18n"; // Initialize i18n for multilingual support
 import Contact from "./components/Contact";
 import LegalNotice from "./components/Legalnotice";
+import PrivacyPolicy from "./components/privacy";
 // Home component for the root route
 function Home() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/about" element={<About />} /> 
         <Route path="/contact" element={<Contact />} /> 
         <Route path="/Legalnotice" element={<LegalNotice />} /> 
+        <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} /> 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

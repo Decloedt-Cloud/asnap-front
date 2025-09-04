@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
 
       <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">{t('footer.contact')}</h2>
+        
           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
             <span>{t('footer.address1')}</span>
             <span>{t('footer.address2')}</span>
@@ -46,6 +46,9 @@ const Footer = () => {
           </Link>
           <Link to="/Legalnotice" className="text-yellow-400 hover:underline">
             {t('legal.title')}
+          </Link>
+          <Link to="/PrivacyPolicy" className="text-yellow-400 hover:underline">
+            {t('privacy.title')}
           </Link>
         </div>
 
